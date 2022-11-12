@@ -2,8 +2,8 @@ from pathlib import Path
 import os
 
 
-path2audios = str(Path("../data"))
-path2logs = str(Path("../data/logs"))
+path2audios = str(Path("./data"))
+path2logs = str(Path("./data/logs"))
 os.makedirs(path2audios, exist_ok=True)
 os.makedirs(path2logs, exist_ok=True)
 
