@@ -281,4 +281,3 @@ dependencies:
     - whisper==1.0
     - wordcloud==1.8.2.2
     - yarl==1.8.1
-prefix: /home/mra/anaconda3/envs/podalize
