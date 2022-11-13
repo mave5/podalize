@@ -36,7 +36,7 @@ $ streamlit run podalize_app.py
 
 6- Either upload a mp3 file or provide a YouTube URL for transcription and analysis.
 
-
+Note: only tested on Ubuntu. 
 
 ## Refrencess
 - [pyannote.audio](https://github.com/pyannote/pyannote-audio)
