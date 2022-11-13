@@ -1,8 +1,11 @@
-# podalize
-Podalize: Podcast Transcription and Analysis
+# Podalize: Podcast Transcription and Analysis
+Streamlit app for podcast transcription and analysis using Pyannote.audio and OpenAI's Whisper. 
+
+It works with .mp3 files or Youtube URLs.
 
 
 ## How to install
+
 1- Install [Anaconda](https://www.anaconda.com/)
 
 2- Clone/download this repo to your local machine. 
@@ -31,4 +34,5 @@ $ conda activate podalize
 $ streamlit run podalize_app.py
 ```
 
+6- Either upload a mp3 file or provide a YouTube URL for transcription and analysis.
 
