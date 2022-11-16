@@ -233,7 +233,7 @@ def get_spoken_time(result, speakers):
     return spoken_time, spoken_time_secs
 
 
-def get_world_cloud(result, speakers_dict, path2figs="../data/logs"):
+def get_world_cloud(result, speakers_dict, path2figs="./data/logs"):
     from wordcloud import WordCloud
     speakers = result['speakers']
     figs = []
