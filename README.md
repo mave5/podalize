@@ -3,6 +3,8 @@ Streamlit app for podcast transcription and analysis using Pyannote.audio and Op
 
 It works with .mp3 files or Youtube URLs.
 
+[Sample episode](https://github.com/mave5/podalize/blob/main/data/podalize_Season%202%20Ep%2022%20Geoff%20Hinton%20on%20revolutionizing%20artificial%20intelligence%20again.pdf)
+
 ![usage](https://github.com/mave5/podalize/blob/main/data/usage.png)
 
 ## How to install
