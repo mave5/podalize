@@ -41,7 +41,7 @@ $ streamlit run podalize_app.py
 
 6- Either upload a mp3 file or provide a YouTube URL for transcription and analysis.
 
-8- You may need to install ffmpeg. Follow instructions here: https://github.com/openai/whisper
+7- You may need to install ffmpeg. Follow instructions here: https://github.com/openai/whisper
 
 ## Refrencess
 - [pyannote.audio](https://github.com/pyannote/pyannote-audio)
