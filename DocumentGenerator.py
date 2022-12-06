@@ -1,9 +1,9 @@
 from pylatex import Command
-from pylatex.utils import italic, NoEscape
-from pylatex import Document, Section, Subsection, Plot, Figure, NewPage, NewLine, Tabular
+from pylatex.utils import NoEscape
+from pylatex import Document, Section, Subsection, Figure, NewPage, NewLine, Tabular
 from myutils import *
 
-class ReportGenerator:
+class DocumentGenerator:
     def __init__(self, **kwargs):
         self.path2logs = kwargs['path2logs']
         self.fig_count = 0

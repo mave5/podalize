@@ -9,15 +9,17 @@ It works with .mp3 files or Youtube URLs.
 
 ## How to install
 
+Note: This code only was tested on Ubuntu 20.04.5 LTS.
+
 1- Install [Anaconda](https://www.anaconda.com/)
 
 2- Clone/download this repo to your local machine. 
 
-Get a pyannote.adudio access token by following the instructions 
+3- Get a pyannote.adudio access token by following the instructions: 
 [here](https://github.com/mave5/podalize/blob/main/configs.py)
 
 
-3- Lanch anaconda prompt and navigate to the repo on your local machine
+3- Launch anaconda prompt and navigate to the repo on your local machine
 
 4- Create a conda environment from environment.yml
 
@@ -38,8 +40,6 @@ $ streamlit run podalize_app.py
 ```
 
 6- Either upload a mp3 file or provide a YouTube URL for transcription and analysis.
-
-7- Note: This code was only tested on Ubuntu. 
 
 8- You may need to install ffmpeg. Follow instructions here: https://github.com/openai/whisper
 

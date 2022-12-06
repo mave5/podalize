@@ -1,4 +1,4 @@
-from DocumentGenerator import ReportGenerator
+from DocumentGenerator import DocumentGenerator
 from myutils import *
 import datetime
 import json
@@ -98,7 +98,7 @@ if uploaded_file or youtube_url:
         args = {'title': pod_name,
                 'author': 'Created by Podalize',
                 'path2logs': path2logs}
-        rg = ReportGenerator(**args)
+        rg = DocumentGenerator(**args)
 
         for f in spoken_fig:
             rg.add_image(f, caption="Percentage of spoken time per speaker")
