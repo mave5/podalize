@@ -13,7 +13,7 @@ from configs import *
 
 st.title('Podalize: podcast transcription and analysis')
 uploaded_file = st.file_uploader("Choose an audio", type=["mp3", "wav"])
-youtube_url = st.text_input("Youtube URL")
+youtube_url = st.text_input("Youtube/Podcast URL")
 
 if uploaded_file or youtube_url:
     st.spinner(text="In progress...")
