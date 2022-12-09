@@ -4,6 +4,7 @@ import datetime
 import json
 import streamlit as st
 import os
+import subprocess
 import matplotlib.pyplot as plt
 import torchaudio
 from glob import glob
@@ -22,7 +23,16 @@ if uploaded_file or youtube_url:
             with open(p2audio, "wb") as f:
                 f.write(uploaded_file.getvalue())
     if youtube_url:
-        p2audio = youtube_downloader(youtube_url, path2audios)
+        if "youtube.com" in youtube_url:
+            p2audio = youtube_downloader(youtube_url, path2audios)
+        else:
+            path2out = os.path.join(path2audios, "audio.unknown")
+            subprocess.run([f"youtube-dl", f"{youtube_url}", f"-o{path2out}"])
+            p2audio = audio2wav(path2out)
+            os.remove(path2out)
+
+
+
     # diarization
     diarization = get_diarization(p2audio, use_auth_token)
     p2audio = mp3wav(p2audio)

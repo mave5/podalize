@@ -250,3 +250,33 @@ def get_world_cloud(result, speakers_dict, path2figs="./data/logs"):
         figs.append(p2f)
         plt.savefig(p2f)    
     return figs
+
+def get_audio_format(p2a, verbose=False):
+    import magic
+    with open(p2a, "rb") as f:
+        audio_data = f.read()
+    audio_format = magic.from_buffer(audio_data, mime=True)
+    if verbose:
+        print(f"The audio file is in the {audio_format} format.")
+    return audio_format
+def audio2wav(p2audio, verbose=False):
+    if ".wav" in p2audio:
+        if verbose:
+            print("audio is in wav format!")
+        return p2audio
+    _, ext = os.path.splitext(p2audio)
+    p2wav = p2audio.replace(ext, ".wav")
+    if os.path.exists(p2wav):
+        if verbose:
+            print(f"{p2audio} exists!")
+        return p2wav
+
+    from pydub import AudioSegment
+    if verbose:
+        print(f"loading {p2audio}")
+    sound = AudioSegment.from_file(p2audio)
+
+    if verbose:
+        print(f"exporting to {p2wav}")
+    sound.export(p2wav, format="wav")
+    return p2wav
