@@ -1,7 +1,7 @@
 # Podalize: Podcast Transcription and Analysis
-Streamlit app for podcast and audio content transcription and analysis using Pyannote.audio and OpenAI's Whisper. 
 
-It works with .mp3 files or Youtube/Podcast URLs.
+This GitHub repository contains a Streamlit app that allows users to transcribe podcasts and video/audio content, as well as perform text analysis on the transcript. The app uses OpenAI's Whisper for transcription and Pyannote.audio for speaker diarization. Users have the option to manually enter speaker names and the app works with YouTube URLs, audio URLs, and MP3 files. The app outputs spoken time, a word cloud per speaker, and a transcript of the audio, and the results can be downloaded as a PDF file.
+
 
 [Sample episode](https://github.com/mave5/podalize/blob/main/data/podalize_Season%202%20Ep%2022%20Geoff%20Hinton%20on%20revolutionizing%20artificial%20intelligence%20again.pdf)
 
