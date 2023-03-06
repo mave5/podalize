@@ -1,46 +1,38 @@
-from pylatex import Command
-from pylatex.utils import NoEscape
-from pylatex import Document, Section, Subsection, Figure, NewPage, NewLine, Tabular
-from myutils import *
+import os
+import pandas as pd
+from weasyprint import HTML
 
 class DocumentGenerator:
     def __init__(self, **kwargs):
         self.path2logs = kwargs['path2logs']
         self.fig_count = 0
-        self.doc = Document()
-        self.doc.preamble.append(Command('title', kwargs['title']))
-        self.doc.preamble.append(Command('author', kwargs['author']))
-        self.doc.preamble.append(Command('date', NoEscape(r'\today')))
-        self.doc.append(NoEscape(r'\maketitle'))
-
+        self.html = f"<h1>{kwargs['title']}</h1><p><strong>{kwargs['author']}</strong></p>"
+        
     def add_section(self, section_title, section_content=""):
-        with self.doc.create(Section(section_title)):
-            self.doc.append(section_content)
+        self.html += f"<h2>{section_title}</h2><p>{section_content}</p>"
 
-    def add_sub_section(self,ss_title, ss_content):
-        with self.doc.create(Subsection(ss_title)):
-            self.doc.append(ss_content)
+    def add_sub_section(self, ss_title, ss_content):
+        self.html += f"<h3>{ss_title}</h3><p>{ss_content}</p>"
 
     def add_image(self, filename, caption="", width='400px'):
         filename = os.path.abspath(filename)
-        with self.doc.create(Figure(position='h!')) as pic:
-            self.doc.append(Command('centering'))
-            pic.add_image(filename, width=width)
-            pic.add_caption(caption)
+        self.html += f'<img src="{filename}" width="{width}"/><p>{caption}</p>'
         self.fig_count += 1
+
     def add_new_page(self):
-        self.doc.append(NewPage())
+        self.html += '<div style="page-break-after: always;"></div>'
 
     def add_pandas_table(self, df):
         nr, nc = df.shape
-        with self.doc.create(Tabular('c'*(nc+1), pos='centering', row_height=2)) as table:
-            table.add_hline()
-            table.add_row([""] +list(df.columns))
-            table.add_hline()
-            for row in df.index:
-                table.add_row([row] + list(df.loc[row,:]))
-            table.add_hline()
+        self.html += '<table><tr>'
+        self.html += '<th></th>' + ''.join([f'<th>{col}</th>' for col in df.columns]) + '</tr>'
+        for row in df.itertuples():
+            self.html += '<tr>'
+            self.html += f'<td>{row[0]}</td>' + ''.join([f'<td>{val}</td>' for val in row[1:]]) + '</tr>'
+        self.html += '</table>'
 
     def add_new_lines(self, n=1):
-        for _ in range(n):
-            self.doc.append(NewLine())
+        self.html += '<br/>' * n
+
+    def save_pdf(self, output_file):
+        HTML(string=self.html).write_pdf(output_file)
