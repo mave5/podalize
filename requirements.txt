@@ -267,6 +267,7 @@ watchdog=2.1.9=pypi_0
 wcwidth=0.2.5=pyh9f0ad1d_2
 webencodings=0.5.1=py_1
 websocket-client=1.4.1=pyhd8ed1ab_0
+weasyprint=58.0=pypi_0
 werkzeug=2.2.2=pypi_0
 wheel=0.37.1=pyhd3eb1b0_0
 whisper=1.0=pypi_0
