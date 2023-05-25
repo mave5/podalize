@@ -9,7 +9,7 @@ This GitHub repository contains a Streamlit app that allows users to transcribe 
 
 ## How to install
 
-Note: This code only was tested on Ubuntu 20.04.5 LTS.
+Note: This code was only tested on Ubuntu 20.04.5 LTS.
 
 - Install [Anaconda](https://www.anaconda.com/)
 
@@ -39,13 +39,22 @@ $ conda activate podalize
 $ streamlit run podalize_app.py
 ```
 
-- Either upload a mp3 file or provide a YouTube/Podcast URL for transcription and analysis.
-
+## Tips
 - You may need to install ffmpeg. Follow instructions here: https://github.com/openai/whisper
 - You would need to install yt-downloader: https://github.com/ytdl-org/youtube-dl
+
+
+## Usage
+Either upload a .mp3 file or provide a YouTube/Podcast URL for transcription and analysis.
+
 
 ## Refrencess
 - [pyannote.audio](https://github.com/pyannote/pyannote-audio)
 - [OpenAI Whisper](https://github.com/openai/whisper)
 
 
+## Contributions Welcome
+
+### TODo
+- running the app on windows and macos
+- dockerize 
