@@ -239,6 +239,8 @@ def get_world_cloud(result, speakers_dict, path2figs="./data/logs"):
     figs = []
     for sp in speakers:
         words = ''.join([seg['text'] for seg in result['segments'] if seg.get('speaker')==sp])
+        if words == '':
+            continue
         wordcloud = WordCloud(max_font_size=40, background_color='white').generate(words)
         fig = plt.figure()
         plt.imshow(wordcloud, interpolation="bilinear")
