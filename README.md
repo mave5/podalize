@@ -41,7 +41,7 @@ $ streamlit run podalize_app.py
 
 ## Tips
 - You may need to install ffmpeg. Follow instructions here: https://github.com/openai/whisper
-- You would need to install yt-downloader: https://github.com/ytdl-org/youtube-dl
+- You would need to install youtube downloader: https://github.com/yt-dlp/yt-dlp
 
 
 ## Usage
