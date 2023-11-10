@@ -8,11 +8,12 @@ import os
 import pickle
 import matplotlib.pyplot as plt
 from pytube import YouTube
+from pathlib import Path
 from pydub import AudioSegment
 import streamlit as st
 verbose = False
 
-def youtube_downloader(url, destination, bitrate="48k", verbose=True):
+def yt_downloader(url, destination, bitrate="48k", verbose=True):
     video = YouTube(str(url))
     video = video.streams.filter(only_audio=True).first()
     title = video.title
@@ -31,6 +32,11 @@ def youtube_downloader(url, destination, bitrate="48k", verbose=True):
     return path2mp3
 
 
+
+def youtube_downloader(url, destination):
+    path2mp3 = str(Path("./data/audio.mp3"))
+    os.system(f'yt-dlp -x --audio-format mp3 -o {path2mp3} {url}')
+    return path2mp3
 
 def merge_tran_diar(result, segements_dict, speakers_dict):
     output = ""
