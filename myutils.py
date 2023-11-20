@@ -11,6 +11,7 @@ from pytube import YouTube
 from pathlib import Path
 from pydub import AudioSegment
 import streamlit as st
+import numpy as np
 verbose = False
 
 def yt_downloader(url, destination, bitrate="48k", verbose=True):
@@ -34,7 +35,8 @@ def yt_downloader(url, destination, bitrate="48k", verbose=True):
 
 
 def youtube_downloader(url, destination):
-    path2mp3 = str(Path("./data/audio.mp3"))
+    rnd_num = np.random.randint(1e6)
+    path2mp3 = str(Path(f"./data/audio_{rnd_num}.mp3"))
     os.system(f'yt-dlp -x --audio-format mp3 -o {path2mp3} {url}')
     return path2mp3
 

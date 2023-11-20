@@ -9,6 +9,11 @@ import matplotlib.pyplot as plt
 import torchaudio
 from glob import glob
 from configs import *
+import torch
+
+
+if torch.cuda.is_available():
+      st.text(f"cuda device: {torch.cuda.get_device_name()}")
 
 
 st.title('Podalize: podcast transcription and analysis')
@@ -104,6 +109,7 @@ if uploaded_file or youtube_url:
 
 
     pod_name = st.text_input("Enter Podcast Name", value=os.path.basename(p2audio))
+    st.download_button('Download transcript', output[3:])
     if st.button('Download'):
         args = {'title': pod_name,
                 'author': 'Created by Podalize',
