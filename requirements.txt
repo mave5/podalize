@@ -1,5 +1,7 @@
 matplotlib==3.6.1
 pyannote.core==4.5
+pyannote-audio==2.1.1
+altair<5
 pydub==0.25.1
 PyLaTeX==1.4.1
 python_magic==0.4.27
@@ -8,3 +10,4 @@ streamlit==1.14.0
 torchaudio==0.11.0
 whisper==1.0
 wordcloud==1.8.2.2
+yt-dlp

@@ -35,9 +35,12 @@ def yt_downloader(url, destination, bitrate="48k", verbose=True):
 
 
 def youtube_downloader(url, destination):
-    rnd_num = np.random.randint(1e6)
-    path2mp3 = str(Path(f"./data/audio_{rnd_num}.mp3"))
-    os.system(f'yt-dlp -x --audio-format mp3 -o {path2mp3} {url}')
+    try:
+        rnd_num = np.random.randint(1e6)
+        path2mp3 = str(Path(f"./data/audio_{rnd_num}.mp3"))
+        os.system(f'yt-dlp -x --audio-format mp3 -o {path2mp3} {url}')
+    except Exception as e: 
+        print(e)
     return path2mp3
 
 def merge_tran_diar(result, segements_dict, speakers_dict):
