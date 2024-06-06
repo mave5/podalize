@@ -24,13 +24,19 @@ Note: This code was only tested on Ubuntu 20.04.5 LTS.
 - Create a conda environment from environment.yml
 
 ```
-$ conda env create -f environment.yml
+$ conda create -n podalize python=3.9
 ```
 
 - Activate the conda environment
 
 ```
 $ conda activate podalize
+```
+
+- Install packages
+
+```
+$ pip install -r requirements.txt
 ```
 
 - Run streamlit app
