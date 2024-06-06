@@ -1,4 +1,5 @@
-from myutils import *
+        pipeline = Pipeline.from_pretrained("pyannote/speaker-diarization-3.1",
+                                            use_auth_token=use_auth_token)from myutils import *
 import whisper
 import time
 import datetime
@@ -212,7 +213,7 @@ def get_diarization(p2audio, use_auth_token):
         p2audio = mp3wav(p2audio)
         if verbose:
             print("loading model ...")
-        pipeline = Pipeline.from_pretrained("pyannote/speaker-diarization@2.1", use_auth_token=use_auth_token)
+        pipeline = Pipeline.from_pretrained("pyannote/speaker-diarization-3.1", use_auth_token=use_auth_token)
         
         if verbose:
             print("diarization ...")
