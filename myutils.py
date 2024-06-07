@@ -1,5 +1,3 @@
-        pipeline = Pipeline.from_pretrained("pyannote/speaker-diarization-3.1",
-                                            use_auth_token=use_auth_token)from myutils import *
 import whisper
 import time
 import datetime
