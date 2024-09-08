@@ -1,4 +1,5 @@
 import whisper
+import string
 import time
 import datetime
 from pyannote.audio import Pipeline
@@ -6,12 +7,17 @@ import json
 import os
 import pickle
 import matplotlib.pyplot as plt
-from pytube import YouTube
+#from pytube import YouTube
 from pathlib import Path
-from pydub import AudioSegment
+#from pydub import AudioSegment
 import streamlit as st
 import numpy as np
-verbose = False
+import  random
+import torch
+import glob
+
+
+verbose = True
 
 def yt_downloader(url, destination, bitrate="48k", verbose=True):
     video = YouTube(str(url))
@@ -32,12 +38,24 @@ def yt_downloader(url, destination, bitrate="48k", verbose=True):
     return path2mp3
 
 
+def url_to_filename(url):
+    filename = "".join(c for c in url if c in string.printable)
+    filename = filename.replace(".", "_").replace("/", "_")
+    if len(filename) > 255:
+        filename = filename[:252] + "..."
+    return filename
+
 
 def youtube_downloader(url, destination):
+    path2mp3 = ""
     try:
-        rnd_num = np.random.randint(1e6)
-        path2mp3 = str(Path(f"./data/audio_{rnd_num}.mp3"))
-        os.system(f'yt-dlp -x --audio-format mp3 -o {path2mp3} {url}')
+        vid_name = url.rsplit('/', 1)[-1]
+        vid_name = url_to_filename(vid_name)
+        os.system(f'yt-dlp -x --audio-format mp3 -o "./data/{vid_name}.%(ext)s" {url}')
+        list_of_files = glob.glob(f'./data/{vid_name}*.mp3')
+        path2mp3 = max(list_of_files, key=os.path.getctime)
+        if verbose:
+            print(path2mp3)
     except Exception as e: 
         print(e)
     return path2mp3
@@ -189,7 +207,12 @@ def mp3wav(p2mp3):
     return p2wav
 
 
-def get_diarization(p2audio, use_auth_token):
+def get_diarization(p2audio, use_auth_token, device=None, num_speakers=None):
+    if num_speakers == "auto" or num_speakers is None:
+        num_speakers = None
+    else:
+        num_speakers = int(num_speakers)
+
     _, ext = os.path.splitext(p2audio)
     p2s = p2audio.replace(ext, "_diar.json")
     p2p = p2audio.replace(ext, "_diar.pkl")
@@ -211,11 +234,16 @@ def get_diarization(p2audio, use_auth_token):
         p2audio = mp3wav(p2audio)
         if verbose:
             print("loading model ...")
-        pipeline = Pipeline.from_pretrained("pyannote/speaker-diarization-3.1", use_auth_token=use_auth_token)
+        pipeline = Pipeline.from_pretrained("pyannote/speaker-diarization-3.1",
+                                            use_auth_token=use_auth_token)
         
         if verbose:
             print("diarization ...")
-        diarization = pipeline(p2audio)    
+        if device:
+            pipeline.to(torch.device(device))
+
+        diarization = pipeline(p2audio, num_speakers=num_speakers)
+
         
         # save diarization
         with open(p2p, 'wb') as handle:
@@ -292,3 +320,46 @@ def audio2wav(p2audio, verbose=False):
         print(f"exporting to {p2wav}")
     sound.export(p2wav, format="wav")
     return p2wav
+
+
+import yt_dlp
+
+
+def download_audio_as_mp3(url, output_dir="."):
+
+    with yt_dlp.YoutubeDL() as ydl:
+        info = ydl.extract_info(url, download=False)
+        video_title = info['title']
+
+    video_title = os.path.basename(video_title)
+    video_title = video_title[:50]
+    video_dir = os.path.join(output_dir, video_title)
+    os.makedirs(video_dir, exist_ok=True)
+
+    ydl_opts = {
+        'format': 'bestaudio/best',
+        'outtmpl': os.path.join(video_dir, f"{video_title}.%(ext)s"),
+        'postprocessors': [{
+            'key': 'FFmpegExtractAudio',
+            'preferredcodec': 'mp3',
+            'preferredquality': '192',
+        }],
+        'quiet': True,
+    }
+
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        info = ydl.extract_info(url, download=True)
+        if 'entries' in info:
+            # Playlist
+            video = info['entries'][0]
+        else:
+            # Single video
+            video = info
+    video_path = os.path.join(video_dir, video_title + ".mp3")
+    return video_path, video_dir
+
+if __name__ == "__main__":
+    # Example usage
+    video_url = 'https://www.youtube.com/shorts/HMeGMkCTLf8'
+    output = download_audio_as_mp3(video_url)
+    print(output)
